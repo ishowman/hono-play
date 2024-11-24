@@ -3,11 +3,17 @@ name: Send Daily Email
 on:
   schedule:
     - cron: '0 6 * * *'  # 每天 UTC 时间 21:00 触发
+  workflow_dispatch:  # 添加手动触发支持
+
 
 jobs:
   send_email:
     runs-on: ubuntu-latest
     steps:
+      - name: Get current time
+        id: current-time
+        run: echo "time=$(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
+
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
