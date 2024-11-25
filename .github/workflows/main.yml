@@ -18,7 +18,7 @@ jobs:
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: pop.qq.com
-          server_port: 587
+          server_port: 995
           username: ${{ secrets.EMAIL_USERNAME }}  # 你的 Gmail 邮箱地址
           password: ${{ secrets.EMAIL_PASSWORD }}  # Gmail 应用专用密码
           subject: Daily Notification
