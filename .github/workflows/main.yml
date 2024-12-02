@@ -1,30 +1,16 @@
-name: Send Daily Email
+name: Weekly Time Report
 
 on:
   schedule:
-    - cron: '0 16 * * *'  # 每天 UTC 时间 12:00 触发
-  workflow_dispatch:  # 添加手动触发支持
-
+    - cron: '0 12 * * 0'  # 每周日 12:00 UTC
+  workflow_dispatch:  # 支持手动触发
 
 jobs:
-  send_email:
+  print_time:
     runs-on: ubuntu-latest
     steps:
       - name: Get current time
-        id: current-time
-        run: echo "time=$(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
-
-      # - name: Send Email
-      #   uses: dawidd6/action-send-mail@v3
-      #   with:
-      #     server_address: pop.qq.com
-      #     server_port: 995
-      #     username: ${{ secrets.EMAIL_USERNAME }}  # 你的 Gmail 邮箱地址
-      #     password: ${{ secrets.EMAIL_PASSWORD }}  # Gmail 应用专用密码
-      #     subject: Daily Notification
-      #     body: |
-      #       这是一封自动发送的邮件。
-      #       发送时间：${{ github.event.schedule }}
-      #     to: 953814034@qq.com  # 接收邮件的地址
-      #     from: GitHub Actions  # 发件人名称
-
+        run: |
+          echo "当前时间: $(date +'%Y-%m-%d %H:%M:%S UTC')"
+          echo "执行方式: ${{ github.event_name }}"
+          echo "执行用户: ${{ github.actor }}"
